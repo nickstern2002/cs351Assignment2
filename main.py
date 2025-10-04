@@ -32,13 +32,33 @@ def run_frequency_block(ciphertext):
 
 
 
-def automated_partial_decrypt(ciphertext, freq):
+def automated_partial_decrypt(ciphertext, charFrequency):
     # Frequency list pulled from Cornell:
     # https://pi.math.cornell.edu/~mec/2003-2004/cryptography/subs/frequencies.html
     LETTER_FREQUENCY = "ETAOINSRHDLUCMFYWGPBVKXQJZ"
 
-    present_letters = [ch for ch, count in freq.items() if count > 0]
-    sorted_letters = sorted(present_letters, key=lambda ch: freq[ch], reverse=True)
+    present_letters = []
+    for ch, count in charFrequency.items():
+        if count > 0:
+            present_letters.append(ch)
+
+    sorted_letters = []
+    temp_freq = charFrequency.copy()
+
+    while temp_freq:
+        max_letter = None
+        max_count = -1
+        for letter, count in temp_freq.items():
+            if count > max_count:
+                max_count = count
+                max_letter = letter
+
+        sorted_letters.append(max_letter)
+
+        del temp_freq[max_letter]
+
+        if len(sorted_letters) == len(present_letters):
+            break
 
     mapping = {}
     for i in range(len(sorted_letters)):
@@ -50,7 +70,7 @@ def automated_partial_decrypt(ciphertext, freq):
         if ch.isalpha():
             partial_text += mapping.get(ch, ch)
         else:
-            partial_text += ch  
+            partial_text += ch
 
     print("Letter Mapping:", mapping)
     print("\nPartially Deciphered Text:\n")
