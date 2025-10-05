@@ -26,7 +26,7 @@ def run_frequency_block(ciphertext):
             if letter in freq:
                 freq[letter] += 1
 
-    print(freq)
+    print_frequency(freq)
     return freq
 
 
@@ -42,19 +42,19 @@ def automated_partial_decrypt(ciphertext, charFrequency):
             present_letters.append(ch)
 
     sorted_letters = []
-    temp_freq = charFrequency.copy()
+    charFrequencyCopy = charFrequency.copy()
 
-    while temp_freq:
+    while charFrequencyCopy:
         max_letter = None
         max_count = -1
-        for letter, count in temp_freq.items():
+        for letter, count in charFrequencyCopy.items():
             if count > max_count:
                 max_count = count
                 max_letter = letter
 
         sorted_letters.append(max_letter)
 
-        del temp_freq[max_letter]
+        del charFrequencyCopy[max_letter]
 
         if len(sorted_letters) == len(present_letters):
             break
@@ -71,7 +71,7 @@ def automated_partial_decrypt(ciphertext, charFrequency):
         else:
             partial_text += ch
 
-    print("Letter Mapping:", mapping)
+    print_letter_map(mapping)
     print("\nPartially Deciphered Text:\n")
     print(partial_text)
 
@@ -106,6 +106,21 @@ def run_manual_replace_block(partial_text):
             print("Please enter yes or no.")
 
 
+def print_letter_map(mapping):
+    print("\nLetter Mapping Table:")
+    print("----------------------")
+    print("Cipher | Plain")
+    print("-------|------")
+    for cipher, plain in sorted(mapping.items()):
+        print(f"   {cipher}   ==>   {plain}")
+
+
+def print_frequency(freq):
+    print("\nLetter Frequency Table:")
+    print("-----------------------")
+    for letter, count in sorted(freq.items(), key=lambda x: x[1], reverse=True):
+        bar = "|" * count
+        print(f"{letter}: {count}   {bar}")
 
 if __name__ == "__main__":
     main()
