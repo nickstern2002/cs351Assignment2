@@ -1,6 +1,6 @@
 
 def main():
-    ciphertext = input("Enter Ciphertext: ")
+    ciphertext = input("Enter Ciphertext: ").upper()
 
     print("\nStep 1: Frequency Analysis")
     freq = run_frequency_block(ciphertext)  # reuse computed freq later
@@ -78,28 +78,34 @@ def automated_partial_decrypt(ciphertext, charFrequency):
     return partial_text
 
 def run_manual_replace_block(partial_text):
-    k = []
-    k.append(partial_text)
+    original_text = partial_text
 
-    print("Original text:", k)
+    current_chars = list(partial_text)
+
+    print("Original text:", "".join(current_chars))
 
     while True:
-        choice = input("Do you want to change a letter? (yes/no): ")
+        choice = input("Do you want to change a letter? (yes/no): ").strip().lower()
 
-        if choice == "yes":
-            changet = input("What letter you want to change: ")
-            changett = input("What letter would you replace it with: ")
+        if choice in ("yes", "y"):
+            changet = input("What letter you want to change: ").strip().upper()
+            changett = input("What letter would you replace it with: ").strip().upper()
 
-            for i in range(len(k)):
-                k[i] = k[i].replace(changet, changett)
+            for idx, ch in enumerate(original_text):
+                if ch.upper() == changet:
+                    current_chars[idx] = changett
 
             print(f"Replaced '{changet}' with '{changett}'")
-            print("Changed text:", k)
-        elif choice == "no":
-            print("Final text:", k)
+            print("Changed text:", "".join(current_chars))
+
+        elif choice in ("no", "n"):
+            final_text = "".join(current_chars)
+            print("Final text:", final_text)
             break
         else:
             print("Please enter yes or no.")
+
+
 
 if __name__ == "__main__":
     main()
