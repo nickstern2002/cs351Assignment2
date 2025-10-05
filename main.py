@@ -83,16 +83,16 @@ def run_manual_replace_block(partial_text):
     while True:
         choice = input("Do you want to change a letter? (yes/no): ").strip().lower()
 
-        if choice == "yes":
-            changet = input("What letter you want to change: ")
-            changett = input("What letter would you replace it with: ")
+        if choice == "yes" or choice == "y":
+            changet = input("What letter you want to change: ").strip().upper()
+            changett = input("What letter would you replace it with: ").strip().upper()
 
             partial_text = partial_text.replace(changet, changett)
 
             print(f"Replaced '{changet}' with '{changett}'")
             print("Changed text:", partial_text)
 
-        elif choice == "no":
+        elif choice == "no" or choice == "n":
             print("Final text:", partial_text)
             break
         else:
