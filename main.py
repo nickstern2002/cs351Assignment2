@@ -23,7 +23,6 @@ def run_frequency_block(ciphertext):
     for word in k:
         print(f"Checking letter in '{word}':")
         for letter in word:
-            print(letter)
             if letter in freq:
                 freq[letter] += 1
 
