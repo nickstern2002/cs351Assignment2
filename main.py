@@ -39,7 +39,7 @@ def automated_partial_decrypt(ciphertext, charFrequency):
     # present_letters is used to track each letter present in the ciphertext
     # Letters that are not present in the text are not included
     # This is later used for created a list of letters sorted by their frequency
-    # From most common to least common
+    # From most common to the least common
     present_letters = []
     for ch, count in charFrequency.items():
         if count > 0:
@@ -77,6 +77,8 @@ def automated_partial_decrypt(ciphertext, charFrequency):
             mapping[sorted_letters[i]] = LETTER_FREQUENCY[i]
 
     # This block handles the creation of the partially decrypted cipher text
+    # Iterates through the original ciphertext replacing letter by letter based
+    # on the mapping setup before
     partial_text = ""
     for ch in ciphertext:
         if ch.isalpha():
@@ -105,6 +107,10 @@ def run_manual_replace_block(partial_text):
             changet = input("What letter you want to change: ").strip().upper()
             changett = input("What letter would you replace it with: ").strip().upper()
 
+            # The index of the characters to replace is pulled from the original unedited text(`original_text`)
+            # While the actual replacement is done on the modified `current_chars`
+            # This is done to prevent a cascading replace bug
+            # i.e. if an s->t swap was done, then t->v we only want the characters that were originally t to be swapped to v
             for idx, ch in enumerate(original_text):
                 if ch.upper() == changet:
                     current_chars[idx] = changett
@@ -132,7 +138,10 @@ def print_letter_map(mapping):
 def print_frequency(freq):
     print("\nLetter Frequency Table:")
     print("-----------------------")
+    # The key field expects a func so lambda is used to define a func inline
+    # rather than create separate logic just to sort by the value instead of the key
     for letter, count in sorted(freq.items(), key=lambda x: x[1], reverse=True):
+        # bar is used to add a visual count of letter frequency, just makes it look nicer
         bar = "|" * count
         print(f"{letter}: {count}   {bar}")
 
