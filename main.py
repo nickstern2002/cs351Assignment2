@@ -1,5 +1,6 @@
 
 def main():
+    # Assumption: input is expected to be upper case only so this is forced
     ciphertext = input("Enter Ciphertext: ").upper()
 
     print("\nStep 1: Frequency Analysis")
@@ -104,6 +105,7 @@ def run_manual_replace_block(partial_text):
         choice = input("Do you want to change a letter? (yes/no): ").strip().lower()
 
         if choice in ("yes", "y"):
+            # Assumption: Ciphertext is only upper so letters to change are forced to be upper case for easy use
             changet = input("What letter you want to change: ").strip().upper()
             changett = input("What letter would you replace it with: ").strip().upper()
 
