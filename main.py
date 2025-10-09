@@ -3,7 +3,7 @@ def main():
     ciphertext = input("Enter Ciphertext: ").upper()
 
     print("\nStep 1: Frequency Analysis")
-    freq = run_frequency_block(ciphertext)  # reuse computed freq later
+    freq = run_frequency_block(ciphertext)
 
     print("\nStep 2: Automated Partial Decryption")
     partial_text = automated_partial_decrypt(ciphertext, freq)
@@ -36,11 +36,19 @@ def automated_partial_decrypt(ciphertext, charFrequency):
     # https://pi.math.cornell.edu/~mec/2003-2004/cryptography/subs/frequencies.html
     LETTER_FREQUENCY = "ETAOINSRHDLUCMFYWGPBVKXQJZ"
 
+    # present_letters is used to track each letter present in the ciphertext
+    # Letters that are not present in the text are not included
+    # This is later used for created a list of letters sorted by their frequency
+    # From most common to least common
     present_letters = []
     for ch, count in charFrequency.items():
         if count > 0:
             present_letters.append(ch)
 
+
+    # The next 17 lines handle the creation of `sorted_letters`
+    # This is list of letters present in cipher text in order
+    # from most common to least common
     sorted_letters = []
     charFrequencyCopy = charFrequency.copy()
 
@@ -59,11 +67,16 @@ def automated_partial_decrypt(ciphertext, charFrequency):
         if len(sorted_letters) == len(present_letters):
             break
 
+    # This code block constructs a map, mapping letters in the cipher text
+    # to the letter they are automatically replaced with
+    # The replacement letter is determined by the LETTER_FREQUENCY list
+    # sourced from Cornell, saved at the top of the function
     mapping = {}
     for i in range(len(sorted_letters)):
         if i < len(LETTER_FREQUENCY):
             mapping[sorted_letters[i]] = LETTER_FREQUENCY[i]
 
+    # This block handles the creation of the partially decrypted cipher text
     partial_text = ""
     for ch in ciphertext:
         if ch.isalpha():
@@ -71,6 +84,7 @@ def automated_partial_decrypt(ciphertext, charFrequency):
         else:
             partial_text += ch
 
+    # Fancy printing(not really) for the letter mapping and the partially decrypted text
     print_letter_map(mapping)
     print("\nPartially Deciphered Text:\n")
     print(partial_text)
