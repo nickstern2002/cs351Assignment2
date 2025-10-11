@@ -10,7 +10,7 @@ def main():
 	#Print statement before printing the freq.
     print("\nStep 1: Frequency Analysis")
 
-    '''
+	'''
 	Set freq. variable to the fuction of the run freq. block with
 	the cipher text as the parameter 
 	'''
