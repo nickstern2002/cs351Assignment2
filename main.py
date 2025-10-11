@@ -8,12 +8,20 @@ def main():
     # Assumption: input is expected to be upper case only so this is forced
     ciphertext = input("Enter Ciphertext: ").upper()
 
+	#Print statement before printing the freq.
     print("\nStep 1: Frequency Analysis")
+
+	'''
+	Set freq. variable to the fuction of the run freq. block with
+	the cipher text as the parameter 
+	'''
     freq = run_frequency_block(ciphertext)
 
+	#Print statement before printing the partial decryption
     print("\nStep 2: Automated Partial Decryption")
     partial_text = automated_partial_decrypt(ciphertext, freq)
 
+	#Print statement before printing the decryption with the user inputed changed character
     print("\nStep 3: Manual Replacement Phase")
     print("You can now make manual letter replacements to refine your decryption.")
     run_manual_replace_block(partial_text)
@@ -43,7 +51,7 @@ def run_frequency_block(ciphertext):
                 #Increment the letter in the freq. by 1
                 freq[letter] += 1
     
-    #return the freq. key in this function
+    #return the freq. dictionary in this function
     return freq
 
 
@@ -171,8 +179,13 @@ def run_manual_replace_block(partial_text):
 
         #Else if no 
         elif choice in ("no", "n"):
-            
-            #Join the current characters to the final text
+
+			'''
+            Join the current characters to the final text,
+			print the final changed text and break the loop
+          
+			'''
+			
             final_text = "".join(current_chars)
             print("Final text:", final_text)
             break
