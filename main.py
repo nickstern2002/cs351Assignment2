@@ -13,7 +13,6 @@ def main():
 
 	#Set freq. variable to the fuction of the run freq. block with
 	#the cipher text as the parameter 
-
     freq = run_frequency_block(ciphertext)
 
 	#Print statement before printing the partial decryption
