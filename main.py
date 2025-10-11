@@ -165,7 +165,7 @@ def run_manual_replace_block(partial_text):
         #Else if no 
         elif choice in ("no", "n"):
 
-			'''
+            '''
             Join the current characters to the final text,
 			print the final changed text and break the loop          
 			'''
