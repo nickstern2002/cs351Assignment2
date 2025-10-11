@@ -1,6 +1,5 @@
 '''
 Nick S. & Steven R. CS351 Homework 3
-
 '''
 
 def main():
@@ -54,16 +53,12 @@ def run_frequency_block(ciphertext):
     #return the freq. dictionary in this function
     return freq
 
-
-
-
 def automated_partial_decrypt(ciphertext, charFrequency):
     
     '''
     Frequency list pulled from Cornell:
     https://pi.math.cornell.edu/~mec/2003-2004/cryptography/subs/frequencies.html
     '''
-    
     LETTER_FREQUENCY = "ETAOINSRHDLUCMFYWGPBVKXQJZ"
 
     '''
@@ -71,20 +66,17 @@ def automated_partial_decrypt(ciphertext, charFrequency):
     Letters that are not present in the text are not included
     This is later used for created a list of letters sorted by their frequency
     From most common to the least common
-    '''
-    
+    '''    
     present_letters = []
     for ch, count in charFrequency.items():
         if count > 0:
             present_letters.append(ch)
 
-
     '''
     The next 17 lines handle the creation of `sorted_letters`
     This is list of letters present in cipher text in order
     from most common to least common
-    '''
-    
+    '''    
     sorted_letters = []
     charFrequencyCopy = charFrequency.copy()
 
@@ -108,8 +100,7 @@ def automated_partial_decrypt(ciphertext, charFrequency):
     to the letter they are automatically replaced with
     The replacement letter is determined by the LETTER_FREQUENCY list
     sourced from Cornell, saved at the top of the function
-    '''
-    
+    '''    
     mapping = {}
     for i in range(len(sorted_letters)):
         if i < len(LETTER_FREQUENCY):
@@ -119,8 +110,7 @@ def automated_partial_decrypt(ciphertext, charFrequency):
     This block handles the creation of the partially decrypted cipher text
     Iterates through the original ciphertext replacing letter by letter based
     on the mapping setup before
-    '''
-    
+    '''    
     partial_text = ""
     for ch in ciphertext:
         if ch.isalpha():
@@ -155,10 +145,8 @@ def run_manual_replace_block(partial_text):
             ''' 
             Ask user what letter they want to change and what they would want to replace the letter with while 
             stripping all leading and trailing characters.
-            Assumption: Ciphertext is only upper so letters to change are forced to be upper case for easy use.
-            
-            '''
-            
+            Assumption: Ciphertext is only upper so letters to change are forced to be upper case for easy use.            
+            '''            
             changet = input("What letter you want to change: ").strip().upper()
             changett = input("What letter would you replace it with: ").strip().upper()
 
@@ -166,26 +154,21 @@ def run_manual_replace_block(partial_text):
             The index of the characters to replace is pulled from the original unedited text(`original_text`)
             While the actual replacement is done on the modified `current_chars`
             This is done to prevent a cascading replace bug
-            i.e. if an s->t swap was done, then t->v we only want the characters that were originally t to be swapped to v
-            
-            '''
-            
+            i.e. if an s->t swap was done, then t->v we only want the characters that were originally t to be swapped to v            
+            '''            
             for idx, ch in enumerate(original_text):
                 if ch.upper() == changet:
                     current_chars[idx] = changett
                     
             print("Changed text:", "".join(current_chars))
 
-
         #Else if no 
         elif choice in ("no", "n"):
 
 			'''
             Join the current characters to the final text,
-			print the final changed text and break the loop
-          
+			print the final changed text and break the loop          
 			'''
-			
             final_text = "".join(current_chars)
             print("Final text:", final_text)
             break
@@ -193,7 +176,6 @@ def run_manual_replace_block(partial_text):
         #Else ask the user to enter yes or no
         else:
             print("Please enter yes or no.")
-
 
 def print_letter_map(mapping):
     print("\nLetter Mapping Table:")
@@ -211,10 +193,10 @@ def print_frequency(freq):
     '''
     The key field expects a func so lambda is used to define a func inline
     rather than create separate logic just to sort by the value instead of the key
-    '''
-    
+    '''   
     for letter, count in sorted(freq.items(), key=lambda x: x[1], reverse=True):
-        # bar is used to add a visual count of letter frequency, just makes it look nicer
+        
+		# bar is used to add a visual count of letter frequency, just makes it look nicer
         bar = "|" * count
         print(f"{letter}: {count}   {bar}")
 
