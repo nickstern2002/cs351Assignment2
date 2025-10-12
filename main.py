@@ -2,16 +2,18 @@
 Nick S. & Steven R. CS351 Homework 3
 '''
 
+#Define Main for functions and user input
 def main():
     
-    # Assumption: input is expected to be upper case only so this is forced
+    #Ask user for cipher input text
+    #Assumption: input is expected to be upper case only so this is forced
     ciphertext = input("Enter Ciphertext: ").upper()
 
-	#Print statement before printing the freq.
+	#Print statement before setting the freq.
     print("\nStep 1: Frequency Analysis")
 
 
-	#Set freq. variable to the fuction of the run freq. block with
+	#Set freq. variable to the function of the run freq. block with
 	#the cipher text as the parameter 
     freq = run_frequency_block(ciphertext)
 
@@ -22,6 +24,8 @@ def main():
 	#Print statement before printing the decryption with the user inputed changed character
     print("\nStep 3: Manual Replacement Phase")
     print("You can now make manual letter replacements to refine your decryption.")
+    
+    #Use function to replace letter with user input 
     run_manual_replace_block(partial_text)
 
 def run_frequency_block(ciphertext):
@@ -49,9 +53,13 @@ def run_frequency_block(ciphertext):
                 #Increment the letter in the freq. by 1
                 freq[letter] += 1
     
+    #print the frequencies
+    print_frequency(freq)
+    
     #return the freq. dictionary in this function
     return freq
 
+#Define function to decrypt cipher text with the frequencies
 def automated_partial_decrypt(ciphertext, charFrequency):
     
     '''
@@ -117,13 +125,20 @@ def automated_partial_decrypt(ciphertext, charFrequency):
         else:
             partial_text += ch
 
-    # Fancy printing(not really) for the letter mapping and the partially decrypted text
+    #printing for the letter mapping and the partially decrypted text
     print_letter_map(mapping)
+    
+    #Print statement before partially decrypted text
     print("\nPartially Deciphered Text:\n")
+    
+    #Print partially decrypted text
     print(partial_text)
 
+    #Return the partial text
     return partial_text
 
+#Define function for replacing letter with user input
+#from the decrypted partial text
 def run_manual_replace_block(partial_text):
     
     #Create variable to hold the partial text
@@ -161,7 +176,7 @@ def run_manual_replace_block(partial_text):
                     
             print("Changed text:", "".join(current_chars))
 
-        #Else if no 
+        #Else if choice is no 
         elif choice in ("no", "n"):
 
             '''
@@ -176,16 +191,35 @@ def run_manual_replace_block(partial_text):
         else:
             print("Please enter yes or no.")
 
+'''
+Define function to print out table
+for each cipher letter mapped to its
+plain text letter
+'''
 def print_letter_map(mapping):
+    
+    '''
+    Format printing to split the cipher
+    letters and the plain text letters
+    onto a table
+    '''
     print("\nLetter Mapping Table:")
     print("----------------------")
     print("Cipher | Plain")
     print("-------|------")
+    
+    #for loop through the cipher and plain text
+    #in the mapping dictionary 
     for cipher, plain in sorted(mapping.items()):
+        
+        #Print out the cipher letter followed by
+        #plain text letter
         print(f"   {cipher}   ==>   {plain}")
 
-
+#Define function to print the frequncies 
 def print_frequency(freq):
+    
+    #Print statement before showing the frequncies
     print("\nLetter Frequency Table:")
     print("-----------------------")
     
@@ -195,9 +229,14 @@ def print_frequency(freq):
     '''   
     for letter, count in sorted(freq.items(), key=lambda x: x[1], reverse=True):
         
-		# bar is used to add a visual count of letter frequency, just makes it look nicer
+		#bar is used to add a visual count of letter frequency, just makes it look nicer
         bar = "|" * count
+        
+        #print the letter, count , followed by the bar tallies
         print(f"{letter}: {count}   {bar}")
 
+#if file is directed to main
 if __name__ == "__main__":
+    
+    #call main function
     main()
