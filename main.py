@@ -28,6 +28,7 @@ def main():
     #Use function to replace letter with user input 
     run_manual_replace_block(partial_text)
 
+#Define function to decrypt cipher text with the frequencies
 def run_frequency_block(ciphertext):
 
     #Create dictionary for each letter in the alphabet and set the count to 0 
@@ -174,7 +175,8 @@ def run_manual_replace_block(partial_text):
                 if ch.upper() == changet:
                     current_chars[idx] = changett
                     
-            print("Changed text:", "".join(current_chars))
+            #print the change text with joining the current char change 
+			print("Changed text:", "".join(current_chars))
 
         #Else if choice is no 
         elif choice in ("no", "n"):
